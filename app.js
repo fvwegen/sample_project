@@ -12,15 +12,39 @@ mongoClient.connect(url, function(error, client){
 		db.collection('animals').find({}).toArray(function (findErr, results) {
 			if (findErr) throw findErr;
 			console.log(JSON.stringify(results[0]));
+			console.log(JSON.stringify(results[1]));
 			//console.log('A '+result.name+' has a weight of: '+result.weigth);
 		})
 	}else{
 		console.log(error);
 	}
-	db.collection('animals').insertOne({
-		name: 'dog', 
-		weigth: '10'
-	});
+	// db.collection('animals').insertOne({
+	// 	'name': 'bear', 
+	// 	'weigth': '100'
+	// });
+	
+	// db.collection('animals').updateOne(
+	// 	{'name': 'bear'},
+	// 	{$set:{'weigth': '10000'}}
+	// );
+
+	
+	db.collection('animals').updateMany(
+		{'name': 'bear'}, {$set:{'weigth': '1000'}}, function(err, result) {
+		console.log(JSON.stringify(result))
+		}
+	)
+	
+	// db.collection('animals').deleteOne(
+	//  	{name: 'dog'},
+	// // 	{justOne:true}  //de eerste die hij vindt, false: dan worden allen gedelete
+	//  );
+	 
+// 	 db.collection('animals').deleteMany(
+// 		{'name': 'bear'},
+//    // 	{justOne:true}  //de eerste die hij vindt, false: dan worden allen gedelete
+// 	);
+
 	client.close();
 	
 })
